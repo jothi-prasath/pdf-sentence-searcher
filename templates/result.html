@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<body>
+    {% if sentences %}
+    <ul>
+        {% for sentence, page_number in sentences %}
+        <li>
+            <strong>Page {{ page_number }}:</strong><br>
+            {{ sentence }}<br>
+            <hr>
+        </li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <p>No sentences containing '{{ target_word }}' found in the PDF.</p>
+    {% endif %}
+    <a href="/">Go back</a>
+</body>
+</html>
