@@ -1,17 +1,13 @@
+FROM python:slim as build
+
+WORKDIR /app
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
 FROM python:slim
 
 WORKDIR /app
-
-# Copy the current directory contents into the container at /app
-COPY . /app
-
-# Pip update
-RUN pip install --upgrade pip
-
-# Install any needed packages specified in requirements.txt
-RUN pip install --no-cache-dir -r requirements.txt
+COPY --from=build /app /app
 
 EXPOSE 5000
-
-# Run the script when the container launches
 CMD [ "python3", "-m" , "flask", "run", "--host=0.0.0.0"]
