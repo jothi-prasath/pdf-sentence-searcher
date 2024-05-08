@@ -5,6 +5,7 @@ COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
 FROM python:slim
+LABEL maintainer="Jothi Prasath <jothiprasath2@gmail.com>"
 
 WORKDIR /app
 COPY --from=build /app /app
