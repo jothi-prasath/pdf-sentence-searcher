@@ -7,16 +7,13 @@ on:
 
 env:
   REGISTRY_IMAGE: jothiprasath2/pdf-sentence-searcher:latest
+  PLATFORMS: linux/amd64,linux/arm64
 
 jobs:
   build:
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
-      matrix:
-        platform:
-          - linux/amd64
-          - linux/arm64
 
     steps:
       - name: Checkout
@@ -34,7 +31,8 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           context: .
-          platforms: ${{ matrix.platform }}
+          platforms: ${{ env.PLATFORMS }}
           push: true
           tags: ${{ env.REGISTRY_IMAGE }}
-          
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
